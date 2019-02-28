@@ -49,6 +49,21 @@
           }],
           "js": "delete_old_images_dryrun.js"
         }
+      }, {
+        "id": "get_commit",
+        "tql": {
+          "parameters": [{
+            "name": "owner",
+            "type": "STRING"
+          }, {
+            "name": "repo",
+            "type": "STRING"
+          }, {
+            "name": "sha",
+            "type": "STRING"
+          }],
+          "tql": "SELECT * FROM github.get_commit\n  WHERE owner=@owner\n  AND repo='transposit'\n  AND shaCode=@sha"
+        }
       }],
       "javascriptAPIVersion": "3",
       "source": "src"

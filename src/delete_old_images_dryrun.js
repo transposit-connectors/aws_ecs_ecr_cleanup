@@ -33,7 +33,7 @@
         }
       
     	let images = api.run("aws_ecr.paginated_list_images", {body: {repositoryName: rp}});
-      	console.log(images)
+      	
       	images.forEach((img) => {
           	const imgTag = img['imageTag'];
           	if (!imgTag){
