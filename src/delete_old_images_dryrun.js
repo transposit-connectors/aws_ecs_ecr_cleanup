@@ -30,7 +30,6 @@
         }
       
     	let images = api.run("aws_ecr.list_images", {repositoryName: rp})[0]['imageIds'];
-      	console.log(images)
       	
       	images.forEach((img) => {
           	const imgTag = img['imageTag'];
@@ -61,6 +60,8 @@
             }
         });
     });
+  
+  	return imagesToDelete;
 }
 
 /*
