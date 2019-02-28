@@ -30,7 +30,6 @@
         }
       
     	let images = api.run("aws_ecr.list_images", {repositoryName: rp});
-      console.log(images)
       	
       	images.forEach((img) => {
           	const imgTag = img['imageTag'];
