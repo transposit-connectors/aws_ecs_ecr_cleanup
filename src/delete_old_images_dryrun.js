@@ -3,8 +3,9 @@
   	let containersInUse = [];
     let dateNow = new Date();
   	const TWO_WEEKS_BEFORE = dateNow.setDate(dateNow.getDate() - 14);
-  	let demoResult = api.run("this.get_containers_and_tasks_in_use", {env: "demo"});
+  	let demoResult = api.run("this.get_containers_and_tasks_in_use");
     containersInUse = _.unique(containersInUse.concat(demoResult[0]));
+  console.log(containersInUse)
   	let imagesToKeep = [];
   	api.log("repo = " + params.repo);
   	api.log("we are keeping these containers:");
