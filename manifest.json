@@ -24,7 +24,7 @@
           "js": "get_containers_and_tasks_in_use.js"
         }
       }, {
-        "id": "untitled",
+        "id": "list_clusters",
         "tql": {
           "tql": "SELECT * FROM aws_ecs.list_clusters expand by clusterArns"
         }
