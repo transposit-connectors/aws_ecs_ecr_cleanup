@@ -1,11 +1,11 @@
 (params) => {
-  	var _ = require('underscore.js');
-  	let list_clusters = "aws_ecs.list_clusters";
-    let list_services = "aws_ecs.list_services";
-    let describe_services = "aws_ecs.describe_services";
-  	let describe_tasks_definition = "aws_ecs.describe_task_definitions";
+  	const _ = require('underscore.js');
+  	const list_clusters = "aws_ecs.list_clusters";
+    const list_services = "aws_ecs.list_services";
+    const describe_services = "aws_ecs.describe_services";
+  	const describe_tasks_definition = "aws_ecs.describe_task_definition";
 
-	var clusters = api.run(list_clusters)[0]['clusterArns'];
+	let clusters = api.run(list_clusters)[0]['clusterArns'];
 
   	clusters = clusters.map(function(cluster) {
     	return cluster.split("/")[1]
@@ -13,7 +13,7 @@
 	
   	
   	// services indexed by cluster name
-  	var indexedServices = {};
+  	const indexedServices = {};
   	clusters.forEach(function(c) {
     	var resultSvcs = api.run(list_services, {
         	cluster: c
