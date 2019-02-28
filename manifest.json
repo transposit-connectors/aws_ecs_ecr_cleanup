@@ -21,6 +21,12 @@
           }, {
             "name": "tagFilter",
             "type": "STRING"
+          }, {
+            "name": "gitRepositoryOwner",
+            "type": "STRING"
+          }, {
+            "name": "gitRepositoryName",
+            "type": "STRING"
           }],
           "js": "hello_world.js"
         },
