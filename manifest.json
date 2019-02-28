@@ -5,7 +5,7 @@
         "name": "transposit/aws_ecr:latest",
         "alias": "aws_ecr"
       }, {
-        "name": "transposit/aws_ecs:v2.*.*",
+        "name": "transposit/aws_ecs:latest",
         "alias": "aws_ecs"
       }, {
         "name": "transposit/github:v2.*.*",
