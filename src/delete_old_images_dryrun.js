@@ -34,6 +34,7 @@
         }
       
     	let images = api.run("aws_ecr.list_images", {repositoryName: rp});
+      	console.log(images)
       	images.forEach((img) => {
           	const imgTag = img['imageTag'];
           	if (!imgTag){
@@ -43,6 +44,7 @@
         	if (_.contains(imagesToKeep, imgTag) || imgTag == "latest") {
             	return;
             }
+          
           
           	// check for time
           	if (params.tagFilter && imgTag.startsWith("daily_")) {

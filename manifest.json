@@ -43,6 +43,9 @@
           "parameters": [{
             "name": "repo",
             "type": "ARRAY"
+          }, {
+            "name": "tagFilter",
+            "type": "STRING"
           }],
           "js": "delete_old_images_dryrun.js"
         }
