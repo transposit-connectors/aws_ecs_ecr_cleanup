@@ -9,10 +9,19 @@
         "id": "delete_old_images",
         "description": "Returns \"Hello, world\" in different languages",
         "function": {
+          "parameters": [{
+            "name": "repo",
+            "type": "STRING"
+          }],
           "js": "hello_world.js"
         },
         "access": {
           "requireUser": true
+        }
+      }, {
+        "id": "get_containers_and_tasks_in_use",
+        "function": {
+          "js": "get_containers_and_tasks_in_use.js"
         }
       }],
       "javascriptAPIVersion": "3",

@@ -3,10 +3,8 @@
   	let containersInUse = [];
     let dateNow = new Date();
   	const TWO_WEEKS_BEFORE = dateNow.setDate(dateNow.getDate() - 14);
-  	let prodResult = api.run("this.get_containers_and_tasks_in_use", {env: "prod"});
   	let demoResult = api.run("this.get_containers_and_tasks_in_use", {env: "demo"});
-  	let stagingResult = api.run("this.get_containers_and_tasks_in_use", {env: "staging"});
-    containersInUse = _.unique(containersInUse.concat(prodResult[0]).concat(demoResult[0]).concat(stagingResult[0]));
+    containersInUse = _.unique(containersInUse.concat(demoResult[0]));
   	let imagesToKeep = [];
   	api.log("repo = " + params.repo);
   	api.log("we are keeping these containers:");
