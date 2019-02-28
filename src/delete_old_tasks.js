@@ -12,12 +12,7 @@
   	let tasksNotInUse = allTasks.filter(function(tsk){
     	return _.indexOf(tasksInUse, tsk) == -1;
     });
-  console.log(allTasks)
-  console.log(tasksNotInUse)
-  
   	// filter tasks by their latest image push time
-   	tasksNotInUse = tasksNotInUse.slice(params.from,params.to);
-
     tasksNotInUse = tasksNotInUse.filter(function(tsk) {
       	let img = tsk.split("/")[1];
 		//const regex = /([0-9]+)\..+\/([a-zA-Z0-9]+):(.+)/;
@@ -31,24 +26,26 @@
             let service = captureGroups[1];
             let sha = captureGroups[2];
             let revision = captureGroups[3];
-            let commitInfo = api.run("this.get_commit", {sha: sha});
+            let commitInfo = api.run("this.get_commit", {sha: sha, 
+                                                         repo: params.gitRepositoryName, 
+                                                         owner: params.gitRepositoryOwner});
             let commitTime = new Date(commitInfo[0]['commit']['author']['date']).getTime();
           	return commitTime < TWO_WEEKS_BEFORE;
         }
     });
+  	console.log(tasksNotInUse)
   	if (tasksNotInUse.length == 0) {
     	api.log("There is nothing to clean!");
     }
 
-    tasksNotInUse.forEach((tsk) => {
-      let response = api.run(deregister_task_api, 
-                             {body: {"taskDefinition": tsk}})[0];
-      if(response['taskDefinition']['status'] === "INACTIVE") {
-          api.log("Successfully deactivated " + tsk);
-      } else {
-          api.log("ERROR: unable to deactivate " + tsk);
-      };
-	});
-  
+// tasksNotInUse.forEach((tsk) => {
+//     let response = api.run(deregister_task_api, 
+//                            {body: {"taskDefinition": tsk}})[0];
+//     if(response['taskDefinition']['status'] === "INACTIVE") {
+//         api.log("Successfully deactivated " + tsk);
+//     } else {
+//         api.log("ERROR: unable to deactivate " + tsk);
+//     };
+//   });
    	return tasksNotInUse;
 }
