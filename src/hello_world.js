@@ -12,7 +12,7 @@
   	if (batchDeleteRequest["imageIds"].length == 0) {
     	api.log("No image to delete.");
     } else {
-        let response = api.run("aws_ecr.batch_delete_images", {body: batchDeleteRequest});
+        let response = api.run("aws_ecr.batch_delete_image", batchDeleteRequest);
         if (!response[0]['failures']) {
             api.log("Failures : " + response[0]['failures']);
         }
