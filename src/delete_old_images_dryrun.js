@@ -19,6 +19,7 @@
           	return imgTag;
         }
      })));
+  	console.log("We are keeping these containers:");
     console.log(imagesToKeep);
 
   	let imagesToDelete = {};
