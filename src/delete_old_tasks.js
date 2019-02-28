@@ -25,7 +25,7 @@
     }
   
   	// filter out tasks in use
-  	let allTasks = api.run("aws_ecs.paginated_list_task_definitions");
+  	let allTasks = api.run("aws_ecs.list_task_definitions");
   	let tasksNotInUse = allTasks.filter(function(tsk){
     	return _.indexOf(tasksInUseForEnv, tsk) == -1;
     });
