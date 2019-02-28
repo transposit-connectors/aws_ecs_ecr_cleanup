@@ -41,7 +41,7 @@
   	  	// find containers that are in use, based on tasksInUse
   	const containersInUse = _.flatten(tasksInUse.map((tsk) => {
         let taskDef = api.run(describe_tasks_definition, 
-                      {body: {taskDefinition: tsk}})[0]['taskDefinition'];
+                      {taskDefinition: tsk})[0]['taskDefinition'];
         // find task's images
       	let images = taskDef['containerDefinitions'].map((def)=>{
         	return def['image'];
