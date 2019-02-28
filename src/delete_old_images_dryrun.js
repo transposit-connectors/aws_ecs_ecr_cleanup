@@ -50,7 +50,7 @@
           	if (imgTag.startsWith("ci_deploy")) {
             	const sha = imgTag.split("-")[1];
               	let commitInfo = api.run("this.get_commit", 
-                                         {repository: params.gitRepositoryName, 
+                                         {repo: params.gitRepositoryName, 
                                           owner: params.gitRepositoryOwner,
                                           sha: sha});
             	let commitTime = new Date(commitInfo[0]['commit']['author']['date']).getTime();
