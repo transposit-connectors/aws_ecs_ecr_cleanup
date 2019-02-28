@@ -48,7 +48,8 @@
     }));
   console.log("Containers in use: ");
   console.log(containersInUse);
-  console.log("ECS Tasks in use: " + tasksInUse);
+  console.log("ECS Tasks in use: ");
+  console.log(tasksInUse);
   return [containersInUse, tasksInUse];
 }
 
