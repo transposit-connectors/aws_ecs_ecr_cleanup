@@ -62,7 +62,7 @@
             "name": "sha",
             "type": "STRING"
           }],
-          "tql": "SELECT * FROM github.get_commit\n  WHERE owner=@owner\n  AND repo='transposit'\n  AND shaCode=@sha"
+          "tql": "SELECT * FROM github.get_commit\n  WHERE owner=@owner\n  AND repo=@repo\n  AND shaCode=@sha"
         }
       }],
       "javascriptAPIVersion": "3",
