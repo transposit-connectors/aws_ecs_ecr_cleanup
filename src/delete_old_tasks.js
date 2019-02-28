@@ -13,10 +13,7 @@
     	return _.indexOf(tasksInUseForEnv, tsk) == -1;
     });
   
-  	//api.log(tasksNotInUse)
-  
   	// filter tasks by their latest image push time
-  	//let end = Math.max(params.to, tasksNotInUse.length);
    	tasksNotInUse = tasksNotInUse.slice(params.from,params.to);
 
     tasksNotInUse = tasksNotInUse.filter(function(tsk) {
