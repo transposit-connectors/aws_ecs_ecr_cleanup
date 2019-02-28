@@ -1,20 +1,10 @@
 (params) => {
   	var _ = require('underscore.js');
-  	let list_clusters;
-    let list_services;
-    let describe_services;
-  	let describe_tasks_definition;
-  	switch (params.env) {
-      case 'demo':
-        list_clusters (params) => {
-  	var _ = require('underscore.js');
   	let list_clusters  = "aws_ecs.list_clusters";
     let list_services= "aws_ecs.list_services";;
     let describe_services = "aws_ecs.describe_services";;
   	let describe_tasks_definition= "aws_ecs.describe_task_definitions";
-
-  
-	var clusters = api.run(list_clusters)[0]['clusterArns'];
+	let clusters = api.run(list_clusters)[0]['clusterArns'];
 
   	clusters = clusters.map(function(cluster) {
     	return cluster.split("/")[1]
