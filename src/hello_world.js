@@ -3,7 +3,7 @@
                                    {repo: params.repo, 
                                     tagFilter: params.tagFilter, 
                                     gitRepositoryName: params.gitRepositoryName,
-                                   	gitRepositoryOwner: params.gitRepositoryOwner});
+                                   	gitRepositoryOwner: params.gitRepositoryOwner})[0];
     let batchDeleteRequest = {"imageIds": [], 
                               "repositoryName": params.repo};
     imagesToDelete[params.repo].forEach((imgPair) => {
