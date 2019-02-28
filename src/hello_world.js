@@ -43,7 +43,7 @@
             	return;
             }
           
-          	// filter tags
+          	// filter out images that do not match tag provided
           	if (params.tagFilter && !imgTag.startsWith(params.tagFilter)) {
               return;
             }
