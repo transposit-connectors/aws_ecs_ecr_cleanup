@@ -4,6 +4,9 @@
       "dependencies": [{
         "name": "transposit/aws_ecr:v2.*.*",
         "alias": "aws_ecr"
+      }, {
+        "name": "transposit/aws_ecs:v2.*.*",
+        "alias": "aws_ecs"
       }],
       "operations": [{
         "id": "delete_old_images",
