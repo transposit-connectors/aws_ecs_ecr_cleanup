@@ -42,26 +42,17 @@
             	return;
             }
           
-          
-          	// check for time
+          	// filter out images that do not match tag provided
           	if (params.tagFilter && !imgTag.startsWith(params.tagFilter)) {
-              const splitTag = imgTag.split("_");
-              const year = splitTag[1];
-              const month = splitTag[2];
-              const date = splitTag[3];
-              let pushDate = new Date();
-              pushDate.setYear(year);
-              pushDate.setMonth(month);
-              pushDate.setDate(date);
-              if (pushDate.getTime() < TWO_WEEKS_BEFORE) {
-              	imagesToDelete[rp].push(img);
-              }
               return;
             }
           
           	if (imgTag.startsWith("ci_deploy")) {
             	const sha = imgTag.split("-")[1];
-              	let commitInfo = api.run("this.get_commit", {sha: sha});
+              	let commitInfo = api.run("this.get_commit", 
+                                         {repository: params.gitRepositoryName, 
+                                          owner: params.gitRepositoryOwner,
+                                          sha: sha});
             	let commitTime = new Date(commitInfo[0]['commit']['author']['date']).getTime();
           		if (commitTime < TWO_WEEKS_BEFORE) {
                 	imagesToDelete[rp].push(img);
