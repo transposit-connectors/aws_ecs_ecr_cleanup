@@ -2,7 +2,7 @@
   "v2": {
     "transposit": {
       "dependencies": [{
-        "name": "transposit/aws_ecr:v2.*.*",
+        "name": "transposit/aws_ecr:v1.*.*",
         "alias": "aws_ecr"
       }, {
         "name": "transposit/aws_ecs:v2.*.*",
