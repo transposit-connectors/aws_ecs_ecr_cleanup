@@ -4,25 +4,8 @@
     let dateNow = new Date();
   	const TWO_WEEKS_BEFORE = dateNow.setDate(dateNow.getDate() - 14);
 	
-  	let tasksInUseForEnv;
+  	let tasksInUseForEnv = api.run("this.get_containers_and_tasks_in_use");
   	let deregister_task_api = "aws_ecs.deregister_task_definitions";
-  	switch(params.env) {
-      case "demo":
-        let demoResult = api.run("this.get_containers_and_tasks_in_use", {env: "demo"});
-        tasksInUseForEnv = demoResult[1];
-        deregister_task_api = "aws_ecs.deregister_task_definitions";
-        break;
-      case "staging":
-        let stagingResult = api.run("this.get_containers_and_tasks_in_use", {env: "staging"});
-        tasksInUseForEnv = stagingResult[1];
-        deregister_task_api = "staging_aws_ecs.deregister_task_definitions";
-       	break;
-      case "prod":
-        let prodResult = api.run("this.get_containers_and_tasks_in_use", {env: "prod"});
-        tasksInUseForEnv = prodResult[1];
-        deregister_task_api = "prod_aws_ecs.deregister_task_definitions";
-        break;	
-    }
   
   	// filter out tasks in use
   	let allTasks = api.run("aws_ecs.list_task_definitions");
