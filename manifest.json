@@ -7,6 +7,9 @@
       }, {
         "name": "transposit/aws_ecs:v2.*.*",
         "alias": "aws_ecs"
+      }, {
+        "name": "transposit/github:v2.*.*",
+        "alias": "github"
       }],
       "operations": [{
         "id": "delete_old_images",
