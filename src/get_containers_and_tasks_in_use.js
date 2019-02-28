@@ -15,9 +15,9 @@
   	// services indexed by cluster name
   	var indexedServices = {};
   	clusters.forEach(function(c) {
-    	var resultSvcs = api.run(list_services, {body: {
+    	var resultSvcs = api.run(list_services, {
         	cluster: c
-        }})[0];
+        })[0];
       	indexedServices[c] = _.map(resultSvcs, _.values)[0];
     });
 
