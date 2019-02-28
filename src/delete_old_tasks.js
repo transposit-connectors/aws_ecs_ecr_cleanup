@@ -4,14 +4,16 @@
     let dateNow = new Date();
   	const TWO_WEEKS_BEFORE = dateNow.setDate(dateNow.getDate() - 14);
 	
-  	let tasksInUseForEnv = api.run("this.get_containers_and_tasks_in_use");
+  	let tasksInUse = api.run("this.get_containers_and_tasks_in_use")[1];
   	let deregister_task_api = "aws_ecs.deregister_task_definitions";
   
   	// filter out tasks in use
-  	let allTasks = api.run("aws_ecs.list_task_definitions");
+  	let allTasks = api.run("aws_ecs.list_task_definitions")[0]['taskDefinitionArns'];
   	let tasksNotInUse = allTasks.filter(function(tsk){
-    	return _.indexOf(tasksInUseForEnv, tsk) == -1;
+    	return _.indexOf(tasksInUse, tsk) == -1;
     });
+  console.log(allTasks)
+  console.log(tasksNotInUse)
   
   	// filter tasks by their latest image push time
    	tasksNotInUse = tasksNotInUse.slice(params.from,params.to);
