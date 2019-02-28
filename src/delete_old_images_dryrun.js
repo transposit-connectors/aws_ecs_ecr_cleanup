@@ -46,7 +46,7 @@
           
           
           	// check for time
-          	if (params.tagFilter && imgTag.startsWith("daily_")) {
+          	if (params.tagFilter && !imgTag.startsWith(params.tagFilter)) {
               const splitTag = imgTag.split("_");
               const year = splitTag[1];
               const month = splitTag[2];
