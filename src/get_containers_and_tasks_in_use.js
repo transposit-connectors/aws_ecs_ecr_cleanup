@@ -23,12 +23,12 @@
 
   
   	// get task arns
-    var tasksInUse = [];
+    let tasksInUse = [];
   	_.each(indexedServices, function(val, key) {
-      	var svcNames = val.map(function(v) {
+      	const svcNames = val.map(function(v) {
         	return v.split("/")[1];
         });
-		var tasks = api.run(describe_services, {
+		const tasks = api.run(describe_services, {
             cluster: key,
             services: svcNames
         });
