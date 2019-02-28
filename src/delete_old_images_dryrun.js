@@ -4,14 +4,13 @@
     let dateNow = new Date();
   	const TWO_WEEKS_BEFORE = dateNow.setDate(dateNow.getDate() - 14);
   	let demoResult = api.run("this.get_containers_and_tasks_in_use");
-    containersInUse = _.unique(containersInUse.concat(demoResult[0]));
+  	let imagesToKeep = _.unique(containersInUse.concat(demoResult[0]));
   
-  	let imagesToKeep = [];
   	api.log("we are keeping these containers:");
-	api.log(containersInUse)
+	api.log(imagesToKeep)
 	const regex = /([0-9]+)\..+\/([a-zA-Z0-9]+):(.+)/;
   
-  	imagesToKeep = _.compact(_.unique(containersInUse.map((c) => {
+  	imagesToKeep = _.compact(_.unique(imagesToKeep.map((c) => {
   		let captureGroups = regex.exec(c);
         if (!captureGroups || captureGroups.length == 0) {
              // Not one of our images. Consider it up to date
