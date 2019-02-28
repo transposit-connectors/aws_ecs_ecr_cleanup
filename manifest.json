@@ -23,6 +23,11 @@
         "function": {
           "js": "get_containers_and_tasks_in_use.js"
         }
+      }, {
+        "id": "untitled",
+        "tql": {
+          "tql": "SELECT * FROM aws_ecs.list_clusters expand by clusterArns"
+        }
       }],
       "javascriptAPIVersion": "3",
       "source": "src"
