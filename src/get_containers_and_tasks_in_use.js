@@ -46,7 +46,8 @@
         });
       	return images;
     }));
-  console.log("Containers in use: " + containersInUse);
+  console.log("Containers in use: ");
+  console.log(containersInUse);
   console.log("ECS Tasks in use: " + tasksInUse);
   return [containersInUse, tasksInUse];
 }
