@@ -64,6 +64,11 @@
           }],
           "tql": "SELECT * FROM github.get_commit\n  WHERE owner=@owner\n  AND repo=@repo\n  AND shaCode=@sha"
         }
+      }, {
+        "id": "delete_old_tasks",
+        "function": {
+          "js": "delete_old_tasks.js"
+        }
       }],
       "javascriptAPIVersion": "3",
       "source": "src"
