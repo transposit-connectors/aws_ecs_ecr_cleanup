@@ -29,10 +29,8 @@
         	return v.split("/")[1];
         });
 		var tasks = api.run(describe_services, {
-          	body: {
-            	cluster: key,
-              	services: svcNames
-            }
+            cluster: key,
+            services: svcNames
         });
       	tasksInUse.push(_.pluck(tasks[0].services, "taskDefinition"));
     });
