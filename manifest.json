@@ -42,7 +42,7 @@
         "function": {
           "parameters": [{
             "name": "repo",
-            "type": "STRING"
+            "type": "ARRAY"
           }],
           "js": "delete_old_images_dryrun.js"
         }
