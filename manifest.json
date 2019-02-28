@@ -18,6 +18,9 @@
           "parameters": [{
             "name": "repo",
             "type": "STRING"
+          }, {
+            "name": "tagFilter",
+            "type": "STRING"
           }],
           "js": "hello_world.js"
         },
@@ -33,6 +36,15 @@
         "id": "list_clusters",
         "tql": {
           "tql": "SELECT * FROM aws_ecs.list_clusters expand by clusterArns"
+        }
+      }, {
+        "id": "delete_old_images_dryrun",
+        "function": {
+          "parameters": [{
+            "name": "repo",
+            "type": "STRING"
+          }],
+          "js": "delete_old_images_dryrun.js"
         }
       }],
       "javascriptAPIVersion": "3",

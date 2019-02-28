@@ -32,7 +32,7 @@
         	imagesToDelete[rp] = [];
         }
       
-    	let images = api.run("aws_ecr.paginated_list_images", {body: {repositoryName: rp}});
+    	let images = api.run("aws_ecr.list_images", {body: {repositoryName: rp}});
       	images.forEach((img) => {
           	const imgTag = img['imageTag'];
           	if (!imgTag){
@@ -70,20 +70,9 @@
             }
         });
     });
-  
-    let batchDeleteRequest = {"imageIds": [], 
-                              "repositoryName": params.repo};
-    imagesToDelete[params.repo].forEach((imgPair) => {
-        batchDeleteRequest["imageIds"].push({"imageTag": imgPair['imageTag']});
-    });
-  	if (batchDeleteRequest["imageIds"].length == 0) {
-    	api.log("No image to delete.");
-    } else {
-        let response = api.run("aws_ecr.batch_delete_images", {body: batchDeleteRequest});
-        if (!response[0]['failures']) {
-            api.log("Failures : " + response[0]['failures']);
-        }
-        api.log("Deleted: ");
-        api.log(response[0]['imageIds']);
-    }
 }
+
+/*
+ * For sample code and reference material, visit
+ * https://api-composition.transposit.com/references/js-operations
+ */
