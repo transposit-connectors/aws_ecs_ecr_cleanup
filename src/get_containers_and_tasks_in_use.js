@@ -5,7 +5,6 @@
     let describe_services = "aws_ecs.describe_services";
   	let describe_tasks_definition = "aws_ecs.describe_task_definitions";
 
-  
 	var clusters = api.run(list_clusters)[0]['clusterArns'];
 
   	clusters = clusters.map(function(cluster) {
