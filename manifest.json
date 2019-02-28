@@ -6,7 +6,7 @@
         "alias": "aws_ecr"
       }],
       "operations": [{
-        "id": "hello_world",
+        "id": "delete_old_images",
         "description": "Returns \"Hello, world\" in different languages",
         "function": {
           "js": "hello_world.js"

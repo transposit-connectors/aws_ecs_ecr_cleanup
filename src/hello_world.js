@@ -1,17 +1,93 @@
 (params) => {
-  return [
-    {
-      language: "english",
-      message: "Hello, world"
-    },
-    {
-      language: "spanish",
-      message: "Hola, mundo"
-    }
-  ];
-}
+	const _ = require('underscore.js');
+  	let containersInUse = [];
+    let dateNow = new Date();
+  	const TWO_WEEKS_BEFORE = dateNow.setDate(dateNow.getDate() - 14);
+  	let prodResult = api.run("this.get_containers_and_tasks_in_use", {env: "prod"});
+  	let demoResult = api.run("this.get_containers_and_tasks_in_use", {env: "demo"});
+  	let stagingResult = api.run("this.get_containers_and_tasks_in_use", {env: "staging"});
+    containersInUse = _.unique(containersInUse.concat(prodResult[0]).concat(demoResult[0]).concat(stagingResult[0]));
+  	let imagesToKeep = [];
+  	api.log("repo = " + params.repo);
+  	api.log("we are keeping these containers:");
+	api.log(containersInUse)
+	const regex = /([0-9]+)\..+\/([a-zA-Z0-9]+):(.+)/;
+  
+  	imagesToKeep = _.compact(_.unique(containersInUse.map((c) => {
+  		let captureGroups = regex.exec(c);
+        if (!captureGroups || captureGroups.length == 0) {
+             // Not one of our images. Consider it up to date
+            return "";
+        } else {
+          	let registryId = captureGroups[1];
+          	let repositoryName = captureGroups[2];
+          	let imgTag = captureGroups[3];
+          	return imgTag;
+        }
+     })));
+    console.log(imagesToKeep);
 
-/*
- * For sample code and reference material, visit
- * https://api-composition.transposit.com/references/js-operations
- */
+  	// we will only be looking at ecr on demo, since that's where all images are
+  	let imagesToDelete = {};
+  	const repos = [params.repo];
+  	repos.forEach((rp) => {
+      	if (!_.contains(_.keys(imagesToDelete), rp)) {
+        	imagesToDelete[rp] = [];
+        }
+      
+    	let images = api.run("aws_ecr.paginated_list_images", {body: {repositoryName: rp}});
+      	//images = images.slice(params.from, params.to)
+      	images.forEach((img) => {
+          	const imgTag = img['imageTag'];
+          	if (!imgTag){
+            	return
+            }
+          	// check if it's being used
+        	if (_.contains(imagesToKeep, imgTag) || imgTag == "latest") {
+            	return;
+            }
+          
+          	// check for time
+          	if (imgTag.startsWith("daily_")) {
+              const splitTag = imgTag.split("_");
+              const year = splitTag[1];
+              const month = splitTag[2];
+              const date = splitTag[3];
+              let pushDate = new Date();
+              pushDate.setYear(year);
+              pushDate.setMonth(month);
+              pushDate.setDate(date);
+              if (pushDate.getTime() < TWO_WEEKS_BEFORE) {
+              	imagesToDelete[rp].push(img);
+              }
+              return;
+            }
+          
+          	if (imgTag.startsWith("ci_deploy")) {
+            	const sha = imgTag.split("-")[1];
+              	let commitInfo = api.run("this.get_commit", {sha: sha});
+            	let commitTime = new Date(commitInfo[0]['commit']['author']['date']).getTime();
+          		if (commitTime < TWO_WEEKS_BEFORE) {
+                	imagesToDelete[rp].push(img);
+                };
+              return;
+            }
+        });
+    });
+  
+    let batchDeleteRequest = {"imageIds": [], 
+                              "repositoryName": params.repo};
+    imagesToDelete[params.repo].forEach((imgPair) => {
+        batchDeleteRequest["imageIds"].push({"imageTag": imgPair['imageTag']});
+    });
+  	if (batchDeleteRequest["imageIds"].length == 0) {
+    	api.log("No image to delete.");
+    } else {
+        let response = api.run("aws_ecr.batch_delete_images", {body: batchDeleteRequest});
+        if (!response[0]['failures']) {
+            api.log("Failures : " + response[0]['failures']);
+        }
+        api.log("Deleted: ");
+        api.log(response[0]['imageIds']);
+    }
+}
