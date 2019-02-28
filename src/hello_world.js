@@ -8,7 +8,7 @@
   	let imagesToKeep = [];
   	api.log("repo = " + params.repo);
   	api.log("we are keeping these containers:");
-	api.log(containersInUse)
+	console.log(containersInUse)
 	const regex = /([0-9]+)\..+\/([a-zA-Z0-9]+):(.+)/;
   
   	imagesToKeep = _.compact(_.unique(containersInUse.map((c) => {
