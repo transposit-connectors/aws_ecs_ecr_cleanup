@@ -101,6 +101,10 @@
           "js": "delete_old_tasks_dryrun.js"
         }
       }],
+      "dataConnections": [{
+        "ref": "aws_ecr.raw.aws_basic",
+        "requireConsumerSignin": true
+      }],
       "javascriptAPIVersion": "3",
       "source": "src"
     }
