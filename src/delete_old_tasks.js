@@ -1,6 +1,6 @@
 (params) => {
 
-
+	const tasksNotInUse = api.run("this.delete_old_tasks_dryrun", {gitRepositoryName : params.gitRepositoryName, gitRepositoryOwner : params.gitRepositoryOwner});
     tasksNotInUse.forEach((tsk) => {
         let response = api.run(deregister_task_api, 
                                {"taskDefinition": tsk})[0];
