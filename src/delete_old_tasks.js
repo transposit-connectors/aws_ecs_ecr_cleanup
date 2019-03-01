@@ -8,7 +8,8 @@
   	let deregister_task_api = "aws_ecs.deregister_task_definitions";
   
   	// filter out tasks in use
-  	let allTasks = api.run("aws_ecs.list_task_definitions")[0]['taskDefinitionArns'];
+  	let allTasks = api.run("aws_ecs.list_task_definitions")
+    console.log(allTasks)
   	let tasksNotInUse = allTasks.filter(function(tsk){
     	return _.indexOf(tasksInUse, tsk) == -1;
     });
