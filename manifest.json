@@ -104,6 +104,9 @@
       "dataConnections": [{
         "ref": "aws_ecr.raw.aws_basic",
         "requireConsumerSignin": true
+      }, {
+        "ref": "aws_ecs.raw.aws_basic",
+        "requireConsumerSignin": true
       }],
       "javascriptAPIVersion": "3",
       "source": "src"
