@@ -1,5 +1,5 @@
 (params) => {
-
+	const deregister_task_api = "aws_ecs.deregister_task_definition";
 	const tasksNotInUse = api.run("this.delete_old_tasks_dryrun", {gitRepositoryName : params.gitRepositoryName, gitRepositoryOwner : params.gitRepositoryOwner});
     tasksNotInUse.forEach((tsk) => {
         let response = api.run(deregister_task_api, 
