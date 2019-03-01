@@ -9,7 +9,7 @@
   
   	// filter out tasks in use
   	let allTasks = api.run("aws_ecs.list_task_definitions")
-    console.log(allTasks)
+
   	let tasksNotInUse = allTasks.filter(function(tsk){
     	return _.indexOf(tasksInUse, tsk) == -1;
     });
