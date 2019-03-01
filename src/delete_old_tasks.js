@@ -14,6 +14,7 @@
     	return _.indexOf(tasksInUse, tsk) == -1;
     });
   	// filter tasks by their latest image push time
+  	tasksNotInUse = tasksNotInUse.slice(0, 20)
     tasksNotInUse = tasksNotInUse.filter(function(tsk) {
       	let img = tsk.split("/")[1];
 		//const regex = /([0-9]+)\..+\/([a-zA-Z0-9]+):(.+)/;
@@ -39,14 +40,14 @@
     	api.log("There is nothing to clean!");
     }
 
-// tasksNotInUse.forEach((tsk) => {
-//     let response = api.run(deregister_task_api, 
-//                            {body: {"taskDefinition": tsk}})[0];
-//     if(response['taskDefinition']['status'] === "INACTIVE") {
-//         api.log("Successfully deactivated " + tsk);
-//     } else {
-//         api.log("ERROR: unable to deactivate " + tsk);
-//     };
-//   });
+    tasksNotInUse.forEach((tsk) => {
+        let response = api.run(deregister_task_api, 
+                               {body: {"taskDefinition": tsk}})[0];
+        if(response['taskDefinition']['status'] === "INACTIVE") {
+            api.log("Successfully deactivated " + tsk);
+        } else {
+            api.log("ERROR: unable to deactivate " + tsk);
+        };
+      });
    	return tasksNotInUse;
 }
