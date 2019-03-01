@@ -106,8 +106,7 @@
       }, {
         "ref": "aws_ecs.raw.aws_basic"
       }, {
-        "ref": "github.raw",
-        "requireConsumerSignin": true
+        "ref": "github.raw"
       }],
       "javascriptAPIVersion": "3",
       "source": "src"
