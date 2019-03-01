@@ -4,7 +4,7 @@
     let dateNow = new Date();
   	const TWO_WEEKS_BEFORE = dateNow.setDate(dateNow.getDate() - 14);
 	
-  	let tasksInUse = api.run("this.get_containers_and_tasks_in_use");
+  	let tasksInUse = api.run("this.get_containers_and_tasks_in_use")[1];
   	let deregister_task_api = "aws_ecs.deregister_task_definitions";
   
   	// filter out tasks in use
