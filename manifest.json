@@ -91,6 +91,13 @@
       }, {
         "id": "delete_old_tasks_dryrun",
         "function": {
+          "parameters": [{
+            "name": "gitRepositoryName",
+            "type": "STRING"
+          }, {
+            "name": "gitRepositoryOwner",
+            "type": "STRING"
+          }],
           "js": "delete_old_tasks_dryrun.js"
         }
       }],
