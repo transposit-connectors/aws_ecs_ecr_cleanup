@@ -104,8 +104,7 @@
       "dataConnections": [{
         "ref": "aws_ecr.raw.aws_basic"
       }, {
-        "ref": "aws_ecs.raw.aws_basic",
-        "requireConsumerSignin": true
+        "ref": "aws_ecs.raw.aws_basic"
       }, {
         "ref": "github.raw",
         "requireConsumerSignin": true
