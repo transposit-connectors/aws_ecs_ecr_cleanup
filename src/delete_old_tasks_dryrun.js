@@ -17,7 +17,6 @@
   	tasksNotInUse = tasksNotInUse.slice(0, 20)
     tasksNotInUse = tasksNotInUse.filter(function(tsk) {
       	let img = tsk.split("/")[1];
-		//const regex = /([0-9]+)\..+\/([a-zA-Z0-9]+):(.+)/;
       	const regex = /([a-z]+)\-ci_deploy\-([a-zA-Z0-9]+):(.+)/
         let captureGroups = regex.exec(img);
         if (!captureGroups || captureGroups.length == 0) {
