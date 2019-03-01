@@ -13,7 +13,7 @@
     	return _.indexOf(tasksInUse, tsk) == -1;
     });
   	// filter tasks by their latest image push time
-  	tasksNotInUse = tasksNotInUse.slice(0, 20)
+  	tasksNotInUse = tasksNotInUse.slice(0, 50)
     tasksNotInUse = tasksNotInUse.filter(function(tsk) {
       	let img = tsk.split("/")[1];
       	const regex = /([a-z]+)\-ci_deploy\-([a-zA-Z0-9]+):(.+)/
