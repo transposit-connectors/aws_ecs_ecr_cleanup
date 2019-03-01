@@ -88,6 +88,11 @@
           }],
           "js": "delete_old_tasks.js"
         }
+      }, {
+        "id": "delete_old_tasks_dryrun",
+        "function": {
+          "js": "delete_old_tasks_dryrun.js"
+        }
       }],
       "javascriptAPIVersion": "3",
       "source": "src"
