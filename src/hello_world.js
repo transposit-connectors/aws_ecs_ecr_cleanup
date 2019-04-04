@@ -20,6 +20,6 @@
         api.log("Deleted: ");
         api.log(response[0]['imageIds']);
      	const textToPost = "Deleted: \n" + response[0]['imageIds'];
-      	api.run("this.post_to_slack", {text: textToPost, channelName:'test-integrations'})
+      	api.run("this.post_to_slack", {text: textToPost, channelName: params.channelName})
     }
 }

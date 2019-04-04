@@ -30,6 +30,9 @@
           }, {
             "name": "gitRepositoryName",
             "type": "STRING"
+          }, {
+            "name": "channelName",
+            "type": "STRING"
           }],
           "js": "hello_world.js"
         },
@@ -60,6 +63,9 @@
             "type": "STRING"
           }, {
             "name": "gitRepositoryOwner",
+            "type": "STRING"
+          }, {
+            "name": "channelName",
             "type": "STRING"
           }],
           "js": "delete_old_images_dryrun.js"

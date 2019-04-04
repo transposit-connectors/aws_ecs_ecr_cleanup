@@ -62,7 +62,7 @@
     });
   
   	const textToPost = "There are the images that will be deleted: \n" + JSON.stringify(imagesToDelete);
-    api.run("this.post_to_slack", {text: textToPost, channelName:'test-integrations'})
+    api.run("this.post_to_slack", {text: textToPost, channelName: params.channelName})
   
   	return imagesToDelete;
 }
