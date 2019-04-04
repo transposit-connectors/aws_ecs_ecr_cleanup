@@ -10,6 +10,9 @@
       }, {
         "name": "transposit/github:v2.*.*",
         "alias": "github"
+      }, {
+        "name": "transposit/slack:v1.*.*",
+        "alias": "slack"
       }],
       "operations": [{
         "id": "delete_old_images",
