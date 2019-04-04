@@ -16,7 +16,10 @@
         if (!response[0]['failures']) {
             api.log("Failures : " + response[0]['failures']);
         }
+      	
         api.log("Deleted: ");
         api.log(response[0]['imageIds']);
+     	const textToPost = "Deleted: \n" + response[0]['imageIds'];
+      	api.run("this.post_to_slack", {text: textToPost, channelName:'test-integrations'})
     }
 }
