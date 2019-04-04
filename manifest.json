@@ -105,6 +105,11 @@
         "function": {
           "js": "get_tasks_in_use.js"
         }
+      }, {
+        "id": "untitled",
+        "tql": {
+          "tql": "select container.image\nfrom aws_ecs.describe_task_definition\nwhere taskDefinition in (select * from this.get_tasks_in_use)\nexpand by taskDefinition.containerDefinitions as container"
+        }
       }],
       "dataConnections": [{
         "ref": "aws_ecr.raw.aws_basic"
