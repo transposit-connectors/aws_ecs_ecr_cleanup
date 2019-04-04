@@ -30,7 +30,7 @@
         }
       
     	let images = api.run("aws_ecr.list_images", {repositoryName: rp});
-      	
+      	images = images.slice(0,10);
       	images.forEach((img) => {
           	const imgTag = img['imageTag'];
           	if (!imgTag){
@@ -60,6 +60,9 @@
             }
         });
     });
+  
+  	const textToPost = "There are the images that will be deleted: \n" + JSON.stringify(imagesToDelete);
+    api.run("this.post_to_slack", {text: textToPost, channelName:'test-integrations'})
   
   	return imagesToDelete;
 }
