@@ -100,6 +100,11 @@
           }],
           "js": "delete_old_tasks_dryrun.js"
         }
+      }, {
+        "id": "get_tasks_in_use",
+        "function": {
+          "js": "get_tasks_in_use.js"
+        }
       }],
       "dataConnections": [{
         "ref": "aws_ecr.raw.aws_basic"

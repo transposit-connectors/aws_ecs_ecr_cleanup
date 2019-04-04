@@ -35,22 +35,10 @@
       	tasksInUse.push(_.pluck(tasks[0].services, "taskDefinition"));
     });
   	tasksInUse = _.flatten(tasksInUse)
-  
-  	  	// find containers that are in use, based on tasksInUse
-  	const containersInUse = _.flatten(tasksInUse.map((tsk) => {
-        let taskDef = api.run(describe_tasks_definition, 
-                      {taskDefinition: tsk})[0]['taskDefinition'];
-        // find task's images
-      	let images = taskDef['containerDefinitions'].map((def)=>{
-        	return def['image'];
-        });
-      	return images;
-    }));
-
-  return [containersInUse, tasksInUse];
+  return tasksInUse
 }
 
 /*
  * For sample code and reference material, visit
- * https://docs.transposit.com/references/js-operations
+ * https://api-composition.transposit.com/references/js-operations
  */
