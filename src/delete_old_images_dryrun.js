@@ -5,6 +5,7 @@ params => {
   const TWO_WEEKS_BEFORE = dateNow.setDate(dateNow.getDate() - 14);
   let imagesInUse = api.run("this.get_containers_and_tasks_in_use");
   let imagesToKeep = _.unique(imagesInUse[0]);
+ 
   const regex = /([0-9]+)\..+\/([a-zA-Z0-9]+):(.+)/;
 
   imagesToKeep = _.compact(
