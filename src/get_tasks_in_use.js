@@ -37,8 +37,3 @@
   	tasksInUse = _.flatten(tasksInUse)
   return tasksInUse
 }
-
-/*
- * For sample code and reference material, visit
- * https://api-composition.transposit.com/references/js-operations
- */
