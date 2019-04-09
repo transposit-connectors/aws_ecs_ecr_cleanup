@@ -27,7 +27,7 @@ params => {
   console.log(imagesToKeep);
 
   let imagesToDelete = {};
-  const repos = [params.repo];
+  const repos = params.repos;
   repos.forEach(rp => {
     if (!_.contains(_.keys(imagesToDelete), rp)) {
       imagesToDelete[rp] = [];
@@ -70,6 +70,7 @@ params => {
   const textToPost =
     "There are the images that will be deleted: \n" +
     JSON.stringify(imagesToDelete);
+  
   api.run("this.post_to_slack", {
     text: textToPost,
     channelName: params.channelName

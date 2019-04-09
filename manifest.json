@@ -53,7 +53,7 @@
         "id": "delete_old_images_dryrun",
         "function": {
           "parameters": [{
-            "name": "repo",
+            "name": "repos",
             "type": "ARRAY"
           }, {
             "name": "tagFilter",
