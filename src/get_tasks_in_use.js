@@ -5,7 +5,7 @@
     const describe_services = "aws_ecs.describe_services";
   	const describe_tasks_definition = "aws_ecs.describe_task_definition";
 
-	let clusters = api.run(list_clusters);
+	let clusters = api.run("aws_ecs.list_clusters");
 
   	clusters = clusters.map(function(cluster) {
     	return cluster.split("/")[1]
@@ -16,7 +16,7 @@
   	const indexedServices = {};
  
   	clusters.forEach(function(c) {
-    	var resultSvcs = api.run(list_services, {
+    	var resultSvcs = api.run("aws_ecs.list_services", {
         	cluster: c
         });
       	indexedServices[c] = resultSvcs;
@@ -28,7 +28,7 @@
       	const svcNames = val.map(function(v) {
         	return v.split("/")[1];
         });
-		const tasks = api.run(describe_services, {
+		const tasks = api.run("aws_ecs.describe_services", {
             cluster: key,
             services: svcNames
         });
