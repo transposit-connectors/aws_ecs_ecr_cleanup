@@ -117,7 +117,7 @@
       }, {
         "id": "get_images_in_use",
         "tql": {
-          "tql": "select container.image\nfrom aws_ecs.describe_task_definition\nwhere taskDefinition in (select * from this.get_tasks_in_use)\nexpand by taskDefinition.containerDefinitions as container"
+          "tql": "SELECT container.image\nFROM aws_ecs.describe_task_definition\nWHERE taskDefinition IN (SELECT * FROM this.get_tasks_in_use)\nEXPAND BY taskDefinition.containerDefinitions AS container\n\n\n"
         }
       }, {
         "id": "post_to_slack",
