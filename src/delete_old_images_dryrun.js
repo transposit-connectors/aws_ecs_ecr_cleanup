@@ -35,7 +35,7 @@ params => {
     }
 
     let images = api.run("aws_ecr.list_images", { repositoryName: rp });
-	images = images.splice(0,10)
+
     images.forEach(img => {
       const imgTag = img["imageTag"];
       if (!imgTag) {
