@@ -54,6 +54,9 @@
         "function": {
           "parameters": [{
             "name": "repos",
+            "default": {
+              "text": "['ECR_repository_name']"
+            },
             "type": "ARRAY"
           }, {
             "name": "tagFilter",

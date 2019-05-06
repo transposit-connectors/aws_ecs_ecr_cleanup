@@ -29,6 +29,7 @@ params => {
 
   let imagesToDelete = {};
   const repos = params.repos;
+
   repos.forEach(rp => {
     if (!_.contains(_.keys(imagesToDelete), rp)) {
       imagesToDelete[rp] = [];
