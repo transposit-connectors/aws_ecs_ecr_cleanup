@@ -23,11 +23,13 @@ params => {
     const svcNames = val.map(function(v) {
       return v.split("/")[1];
     });
-    const tasks = api.run("aws_ecs.describe_services", {
-      cluster: key,
-      services: svcNames
-    });
-    tasksInUse.push(_.pluck(tasks[0].services, "taskDefinition"));
+    for(let i = 0; i < svcNames.length; i+=10) {
+      const tasks = api.run("aws_ecs.describe_services", {
+        cluster: key,
+        services: svcNames.slice(i, i+10)
+      });
+      tasksInUse.push(_.pluck(tasks[0].services, "taskDefinition"));      
+    }
   });
   tasksInUse = _.flatten(tasksInUse);
   return tasksInUse;
