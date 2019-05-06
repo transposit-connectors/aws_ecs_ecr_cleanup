@@ -36,7 +36,12 @@ params => {
     }
 
     let images = api.run("aws_ecr.list_images", { repositoryName: rp });
-
+	
+    if (images.length == 0) {
+      console.log('There is nothing to clean!');
+      return;
+    }
+    
     images.forEach(img => {
       const imgTag = img["imageTag"];
       if (!imgTag) {
