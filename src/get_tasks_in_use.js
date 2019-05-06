@@ -24,6 +24,7 @@ params => {
       return v.split("/")[1];
     });
     for(let i = 0; i < svcNames.length; i+=10) {
+      // we are doing this loop because aws limits inquiring 10 services at a time
       const tasks = api.run("aws_ecs.describe_services", {
         cluster: key,
         services: svcNames.slice(i, i+10)
