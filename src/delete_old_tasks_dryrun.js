@@ -7,6 +7,8 @@
   	let tasksInUse = api.run("this.get_containers_and_tasks_in_use")[1];
   
   	// filter out tasks in use
+    // Please note that request might time out if you have lots of images waiting to be cleaned
+    // To solve this, you can implement a queue on airtable or google sheet
   	let allTasks = api.run("aws_ecs.list_task_definitions")
 
   	let tasksNotInUse = allTasks.filter(function(tsk){
