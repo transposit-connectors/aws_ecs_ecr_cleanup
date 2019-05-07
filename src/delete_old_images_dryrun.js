@@ -29,7 +29,7 @@ params => {
 
   let imagesToDelete = {};
   const repos = params.repos;
-
+	
   repos.forEach(rp => {
     if (!_.contains(_.keys(imagesToDelete), rp)) {
       imagesToDelete[rp] = [];
@@ -41,6 +41,7 @@ params => {
       console.log('There is nothing to clean!');
       return;
     }
+    
     
     images.forEach(img => {
       const imgTag = img["imageTag"];
