@@ -1,147 +1,192 @@
 {
   "v2": {
     "transposit": {
-      "dependencies": [{
-        "name": "transposit/aws_ecr:latest",
-        "alias": "aws_ecr"
-      }, {
-        "name": "transposit/aws_ecs:v3.0.0",
-        "alias": "aws_ecs"
-      }, {
-        "name": "transposit/github:v2.*.*",
-        "alias": "github"
-      }, {
-        "name": "transposit/slack:v1.*.*",
-        "alias": "slack"
-      }],
-      "operations": [{
-        "id": "delete_old_images",
-        "description": "Returns \"Hello, world\" in different languages",
-        "function": {
-          "parameters": [{
-            "name": "repo",
-            "type": "STRING"
-          }, {
-            "name": "tagFilter",
-            "type": "STRING"
-          }, {
-            "name": "gitRepositoryOwner",
-            "type": "STRING"
-          }, {
-            "name": "gitRepositoryName",
-            "type": "STRING"
-          }, {
-            "name": "channelName",
-            "type": "STRING"
-          }],
-          "js": "hello_world.js"
+      "dependencies": [
+        {
+          "name": "transposit/aws_ecr:v3.0.0",
+          "alias": "aws_ecr"
         },
-        "access": {
-          "requireUser": true
+        {
+          "name": "transposit/aws_ecs:v3.0.0",
+          "alias": "aws_ecs"
+        },
+        {
+          "name": "transposit/github:v2.*.*",
+          "alias": "github"
+        },
+        {
+          "name": "transposit/slack:v1.*.*",
+          "alias": "slack"
         }
-      }, {
-        "id": "get_containers_and_tasks_in_use",
-        "function": {
-          "js": "get_containers_and_tasks_in_use.js"
+      ],
+      "operations": [
+        {
+          "id": "delete_old_images",
+          "description": "Returns \"Hello, world\" in different languages",
+          "function": {
+            "parameters": [
+              {
+                "name": "repo",
+                "type": "STRING"
+              },
+              {
+                "name": "tagFilter",
+                "type": "STRING"
+              },
+              {
+                "name": "gitRepositoryOwner",
+                "type": "STRING"
+              },
+              {
+                "name": "gitRepositoryName",
+                "type": "STRING"
+              },
+              {
+                "name": "channelName",
+                "type": "STRING"
+              }
+            ],
+            "js": "hello_world.js"
+          },
+          "access": {
+            "requireUser": true
+          }
+        },
+        {
+          "id": "get_containers_and_tasks_in_use",
+          "function": {
+            "js": "get_containers_and_tasks_in_use.js"
+          }
+        },
+        {
+          "id": "list_clusters",
+          "tql": {
+            "tql": "SELECT * FROM aws_ecs.list_clusters expand by clusterArns"
+          }
+        },
+        {
+          "id": "delete_old_images_dryrun",
+          "function": {
+            "parameters": [
+              {
+                "name": "repos",
+                "default": {
+                  "text": "['ECR_repository_name']"
+                },
+                "type": "ARRAY"
+              },
+              {
+                "name": "tagFilter",
+                "type": "STRING"
+              },
+              {
+                "name": "gitRepositoryName",
+                "type": "STRING"
+              },
+              {
+                "name": "gitRepositoryOwner",
+                "type": "STRING"
+              },
+              {
+                "name": "channelName",
+                "type": "STRING"
+              }
+            ],
+            "js": "delete_old_images_dryrun.js"
+          }
+        },
+        {
+          "id": "get_commit",
+          "tql": {
+            "parameters": [
+              {
+                "name": "owner",
+                "type": "STRING"
+              },
+              {
+                "name": "repo",
+                "type": "STRING"
+              },
+              {
+                "name": "sha",
+                "type": "STRING"
+              }
+            ],
+            "tql": "SELECT * FROM github.get_commit\n  WHERE owner=@owner\n  AND repo=@repo\n  AND shaCode=@sha"
+          }
+        },
+        {
+          "id": "delete_old_tasks",
+          "function": {
+            "parameters": [
+              {
+                "name": "gitRepositoryName",
+                "type": "STRING"
+              },
+              {
+                "name": "gitRepositoryOwner",
+                "type": "STRING"
+              }
+            ],
+            "js": "delete_old_tasks.js"
+          }
+        },
+        {
+          "id": "delete_old_tasks_dryrun",
+          "function": {
+            "parameters": [
+              {
+                "name": "gitRepositoryName",
+                "type": "STRING"
+              },
+              {
+                "name": "gitRepositoryOwner",
+                "type": "STRING"
+              }
+            ],
+            "js": "delete_old_tasks_dryrun.js"
+          }
+        },
+        {
+          "id": "get_tasks_in_use",
+          "function": {
+            "js": "get_tasks_in_use.js"
+          }
+        },
+        {
+          "id": "get_images_in_use",
+          "tql": {
+            "tql": "SELECT container.image\nFROM aws_ecs.describe_task_definition\nWHERE taskDefinition IN (SELECT * FROM this.get_tasks_in_use)\nEXPAND BY taskDefinition.containerDefinitions AS container\n\n\n"
+          }
+        },
+        {
+          "id": "post_to_slack",
+          "function": {
+            "parameters": [
+              {
+                "name": "channelName",
+                "type": "STRING"
+              },
+              {
+                "name": "text",
+                "type": "STRING"
+              }
+            ],
+            "js": "post_to_slack.js"
+          }
         }
-      }, {
-        "id": "list_clusters",
-        "tql": {
-          "tql": "SELECT * FROM aws_ecs.list_clusters expand by clusterArns"
+      ],
+      "dataConnections": [
+        {
+          "ref": "aws_ecr.raw.aws_basic"
+        },
+        {
+          "ref": "aws_ecs.raw.aws_basic"
+        },
+        {
+          "ref": "github.raw"
         }
-      }, {
-        "id": "delete_old_images_dryrun",
-        "function": {
-          "parameters": [{
-            "name": "repos",
-            "default": {
-              "text": "['ECR_repository_name']"
-            },
-            "type": "ARRAY"
-          }, {
-            "name": "tagFilter",
-            "type": "STRING"
-          }, {
-            "name": "gitRepositoryName",
-            "type": "STRING"
-          }, {
-            "name": "gitRepositoryOwner",
-            "type": "STRING"
-          }, {
-            "name": "channelName",
-            "type": "STRING"
-          }],
-          "js": "delete_old_images_dryrun.js"
-        }
-      }, {
-        "id": "get_commit",
-        "tql": {
-          "parameters": [{
-            "name": "owner",
-            "type": "STRING"
-          }, {
-            "name": "repo",
-            "type": "STRING"
-          }, {
-            "name": "sha",
-            "type": "STRING"
-          }],
-          "tql": "SELECT * FROM github.get_commit\n  WHERE owner=@owner\n  AND repo=@repo\n  AND shaCode=@sha"
-        }
-      }, {
-        "id": "delete_old_tasks",
-        "function": {
-          "parameters": [{
-            "name": "gitRepositoryName",
-            "type": "STRING"
-          }, {
-            "name": "gitRepositoryOwner",
-            "type": "STRING"
-          }],
-          "js": "delete_old_tasks.js"
-        }
-      }, {
-        "id": "delete_old_tasks_dryrun",
-        "function": {
-          "parameters": [{
-            "name": "gitRepositoryName",
-            "type": "STRING"
-          }, {
-            "name": "gitRepositoryOwner",
-            "type": "STRING"
-          }],
-          "js": "delete_old_tasks_dryrun.js"
-        }
-      }, {
-        "id": "get_tasks_in_use",
-        "function": {
-          "js": "get_tasks_in_use.js"
-        }
-      }, {
-        "id": "get_images_in_use",
-        "tql": {
-          "tql": "SELECT container.image\nFROM aws_ecs.describe_task_definition\nWHERE taskDefinition IN (SELECT * FROM this.get_tasks_in_use)\nEXPAND BY taskDefinition.containerDefinitions AS container\n\n\n"
-        }
-      }, {
-        "id": "post_to_slack",
-        "function": {
-          "parameters": [{
-            "name": "channelName",
-            "type": "STRING"
-          }, {
-            "name": "text",
-            "type": "STRING"
-          }],
-          "js": "post_to_slack.js"
-        }
-      }],
-      "dataConnections": [{
-        "ref": "aws_ecr.raw.aws_basic"
-      }, {
-        "ref": "aws_ecs.raw.aws_basic"
-      }, {
-        "ref": "github.raw"
-      }],
+      ],
       "javascriptAPIVersion": "3",
       "source": "src"
     },
