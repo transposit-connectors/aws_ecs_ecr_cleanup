@@ -14,12 +14,14 @@
   	let tasksNotInUse = allTasks.filter(function(tsk){
     	return _.indexOf(tasksInUse, tsk) == -1;
     });
+  
   	// filter tasks by their latest image push time
   	// split up your runs if you have too many tasks
-  	// tasksNotInUse = tasksNotInUse.slice(0, 50)
+	// tasksNotInUse = tasksNotInUse.slice(0, 50);
     tasksNotInUse = tasksNotInUse.filter(function(tsk) {
       	let img = tsk.split("/")[1];
-      	const regex = /([a-z]+)\-ci_deploy\-([a-zA-Z0-9]+):(.+)/
+      	// You may use a different regex, dpending on your image format
+      	const regex = /([a-z]+)\-ci_deploy\-([a-zA-Z0-9]+):(.+)/;
         let captureGroups = regex.exec(img);
         if (!captureGroups || captureGroups.length == 0) {
              // Not one of our images. Consider it up to date
