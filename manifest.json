@@ -120,7 +120,7 @@
       }, {
         "id": "get_images_in_use",
         "tql": {
-          "tql": "SELECT container.image\nFROM aws_ecs.describe_task_definition\nWHERE $body IN (SELECT * FROM this.get_tasks_in_use)\nEXPAND BY taskDefinition.containerDefinitions AS container\n\n\n\n\n-- SELECT container.image\n-- FROM aws_ecs.describe_task_definition\n-- WHERE taskDefinition IN (SELECT * FROM this.get_tasks_in_use)\n-- EXPAND BY taskDefinition.containerDefinitions AS container\n"
+          "tql": "SELECT container.image\nFROM aws_ecs.describe_task_definition\nWHERE $body.taskDefinition IN (SELECT * FROM this.get_tasks_in_use)\nEXPAND BY taskDefinition.containerDefinitions AS container\n\n\n--select * from this.get_tasks_in_use\n\n-- SELECT container.image\n-- FROM aws_ecs.describe_task_definition\n-- WHERE taskDefinition IN (SELECT * FROM this.get_tasks_in_use)\n-- EXPAND BY taskDefinition.containerDefinitions AS container\n"
         }
       }, {
         "id": "post_to_slack",

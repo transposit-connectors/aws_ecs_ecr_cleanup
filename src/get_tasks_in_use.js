@@ -37,6 +37,6 @@
   tasksInUse.forEach((t) => {
     result.push({$body: {taskDefinition: t}})
   });
-  return result;
+  return tasksInUse;
 }
 
