@@ -1,4 +1,4 @@
-params => {
+(params) => {
   const _ = require("underscore.js");
 
   let clusters = api.run("aws_ecs.list_clusters");
@@ -33,7 +33,10 @@ params => {
     }
   });
   tasksInUse = _.flatten(tasksInUse);
-  return {taskDefinition: tasksInUse};
+  let result =[];
+  tasksInUse.forEach((t) => {
+    result.push({$body: {taskDefinition: t}})
+  });
+  return result;
 }
-
 
