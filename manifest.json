@@ -150,6 +150,15 @@
             }
           }
         }
+      }, {
+        "ref": "aws_ecs",
+        "overrides": {
+          "aws": {
+            "region": "us-west-2",
+            "executionLimits": {
+            }
+          }
+        }
       }],
       "javascriptAPIVersion": "3",
       "source": "src"
