@@ -33,7 +33,7 @@ params => {
     }
   });
   tasksInUse = _.flatten(tasksInUse);
-  return tasksInUse;
+  return {taskDefinition: tasksInUse};
 }
 
 
