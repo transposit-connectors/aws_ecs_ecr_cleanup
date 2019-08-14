@@ -11,9 +11,9 @@ params => {
   const indexedServices = {};
 
   clusters.forEach(function(c) {
-    let resultSvcs = api.run("aws_ecs.list_services", {
+    let resultSvcs = api.run("aws_ecs.list_services", {$body: {
       cluster: c
-    });
+    }});
     indexedServices[c] = resultSvcs;
   });
 
@@ -25,10 +25,10 @@ params => {
     });
     for(let i = 0; i < svcNames.length; i+=10) {
       // we are doing this loop because aws limits inquiring 10 services at a time
-      const tasks = api.run("aws_ecs.describe_services", {
+      const tasks = api.run("aws_ecs.describe_services", {$body: {
         cluster: key,
         services: svcNames.slice(i, i+10)
-      });
+      }});
       tasksInUse.push(_.pluck(tasks[0].services, "taskDefinition"));      
     }
   });

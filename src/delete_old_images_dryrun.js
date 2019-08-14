@@ -37,7 +37,7 @@ params => {
 
     // Please note that request might time out if you have lots of images waiting to be cleaned
     // To solve this, you can implement a queue on airtable or google sheet
-    let images = api.run("aws_ecr.list_images", { repositoryName: rp });
+    let images = api.run("aws_ecr.list_images", {$body: { repositoryName: rp }});
 	
     if (images.length == 0) {
       console.log('There is nothing to clean!');
