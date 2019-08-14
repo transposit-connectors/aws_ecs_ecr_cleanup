@@ -141,6 +141,15 @@
         "ref": "aws_ecs.raw.aws_basic"
       }, {
         "ref": "github.raw"
+      }, {
+        "ref": "aws_ecr",
+        "overrides": {
+          "aws": {
+            "region": "us-west-2",
+            "executionLimits": {
+            }
+          }
+        }
       }],
       "javascriptAPIVersion": "3",
       "source": "src"
