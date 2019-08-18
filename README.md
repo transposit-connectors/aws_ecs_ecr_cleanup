@@ -1,5 +1,4 @@
-
-# AWS ECS/ECR cleanup task
+# AWS ECS/ECR Cleanup
 
 At Transposit, we run services on AWS ECS and store our container images in AWS ECR. When either ECS tasks or ECR repositories gets full, our build and deployment suffer. This app finds container images and ECS tasks not being used, and safely purges them. It also checks with GitHub to verify the date of creation for a specific container image, since we use a commit SHA to link commits and deployment.
 
