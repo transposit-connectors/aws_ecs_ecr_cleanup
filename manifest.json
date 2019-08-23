@@ -163,6 +163,7 @@
       "javascriptAPIVersion": "3",
       "source": "src"
     },
-    "description": "Find container images and ECS tasks not being used, verify the creation dates, and safely purge them."
+    "description": "Find container images and ECS tasks not being used, verify the creation dates, and safely purge them.",
+    "displayName": "AWS ECS/ECR Cleanup"
   }
 }
